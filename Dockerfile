@@ -5,15 +5,15 @@ RUN apt-get update -y && apt-get install -y \
     git \
     hdf5-tools \
     libboost-dev \
+    libboost-serialization-dev \
     mpich \
     python3 \
-    scons \
+    python3-pip \
+    # scons \ # is installed from pip below!
     && rm -rf /var/lib/apt/lists/*
 
-
-# RUN pip install --no-cache-dir --upgrade pip && \
-#     pip install --no-cache-dir distutils
-
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir scons
 
 RUN git clone https://github.com/SGpp/DisCoTec.git
 WORKDIR ./DisCoTec
