@@ -6,6 +6,7 @@ RUN apt-get update -y && apt-get install -y \
     hdf5-tools \
     libboost-dev \
     libboost-serialization-dev \
+    libboost-test-dev \
     mpich \
     python3 \
     python3-pip \
@@ -16,7 +17,18 @@ RUN pip3 install --no-cache-dir --upgrade pip && \
     pip3 install --no-cache-dir scons
 
 RUN git clone https://github.com/SGpp/DisCoTec.git
+
 WORKDIR ./DisCoTec
-RUN . ./compile.sh
+RUN ls -l ./distributedcombigrid/tests/
+# compile DisCoTec
+# ...along the lines of
+# RUN . ./compile.sh
+RUN scons -j 8 ISGENE=0 VERBOSE=1 COMPILE_BOOST_TESTS=1 RUN_BOOST_TESTS=0 RUN_CPPLINT=0 BUILD_STATICLIB=0 CC=mpicc.mpich FC=mpifort.mpich CXX=mpicxx.mpich OPT=1 TIMING=0 UNIFORMDECOMPOSITION=1 ENABLEFT=0 DEBUG_OUTPUT=0
+
+RUN ls -l ./lib/sgpp/
+RUN ls -l ./distributedcombigrid/tests/
+
+# run DisCoTec tests explicitly, with mpi
 WORKDIR ./distributedcombigrid/tests/
-CMD mpiexec.mpich -n 9 ./test_distributedcombigrid_boost
+RUN export LD_LIBRARY_PATH=../../lib/sgpp:../../glpk/lib:$LD_LIBRARY_PATH \
+    && mpiexec.mpich -np 9 ./test_distributedcombigrid_boost
