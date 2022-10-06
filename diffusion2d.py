@@ -123,10 +123,10 @@ def main():
     # Output 4 figures at these timesteps
     n_output = [0, 10, 50, 100]
 
-    fig_counter = 0
-    fig = plt.figure()
+    # fig_counter = 0
+    # fig = plt.figure()
 
-    im = None
+    # im = None
 
     # Time loop
     for n in range(nsteps):
@@ -134,12 +134,13 @@ def main():
 
         # Create figure
         if n in n_output:
-            fig_counter, im = DiffusionSolver.create_figure(fig, u, n, fig_counter)
+            np.savetxt("./output"+str(n), u, fmt='%4.2f', delimiter=' | ')
+            # fig_counter, im = DiffusionSolver.create_figure(fig, u, n, fig_counter)
 
         u0 = u.copy()
 
     # Plot output figures
-    output_figure(fig, im)
+    # output_figure(fig, im)
 
 
 if __name__ == "__main__":
