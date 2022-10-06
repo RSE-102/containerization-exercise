@@ -28,7 +28,8 @@ RUN scons -j 8 ISGENE=0 VERBOSE=1 COMPILE_BOOST_TESTS=1 RUN_BOOST_TESTS=0 RUN_CP
 RUN ls -l ./lib/sgpp/
 RUN ls -l ./distributedcombigrid/tests/
 
+ENV LD_LIBRARY_PATH=$(pwd)/lib/sgpp:$(pwd)/glpk/lib:$LD_LIBRARY_PATH
+
 # run DisCoTec tests explicitly, with mpi
 WORKDIR ./distributedcombigrid/tests/
-RUN export LD_LIBRARY_PATH=../../lib/sgpp:../../glpk/lib:$LD_LIBRARY_PATH \
-    && mpiexec.mpich -np 9 ./test_distributedcombigrid_boost
+ENTRYPOINT mpiexec.mpich -np 9 ./test_distributedcombigrid_boost

@@ -9,4 +9,10 @@ With docker set up, you can run
 ```
 docker build containerization-exercise/
 ```
-to instantiate DisCoTec.
+to build the container containing DisCoTec.
+
+To instantiate an image,
+TODO
+
+and to run the tests, you have to
+TODO
