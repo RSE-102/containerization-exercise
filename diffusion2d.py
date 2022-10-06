@@ -37,7 +37,7 @@ class SolveDiffusion2D:
         # Timestep
         self.dt = None
 
-    def initialize_domain(self, w=10., h=10., dx=0.1, dy=0.1):
+    def initialize_domain(self, w=10., h=10., dx=0.5, dy=0.5):
         assert type(w) == float, "witdth, w is not float"
         assert type(h) == float, "height, h is not float"
         assert type(dx) == float, "dx is not float"

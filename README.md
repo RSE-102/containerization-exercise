@@ -12,3 +12,5 @@ Instantiate a container:
 Inside the container, run the application:
 
 `python3 diffusion2d.py`
+
+Then it will crate output data into files in the naming format `output[# of corresponding timestamp]`.
